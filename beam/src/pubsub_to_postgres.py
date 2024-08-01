@@ -49,9 +49,6 @@ def run():
     options = PipelineOptions()
     options.view_as(StandardOptions).streaming = True
 
-    # 環境変数から認証情報を読み込む
-    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "/app/credentials/etl-various-data-project-51f0d2bddb59.json"
-
     db_config = {
         'dbname': 'postgres',
         'user': 'postgres',
