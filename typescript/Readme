@@ -1,0 +1,49 @@
+
+Typescriptにはnodeとnpmが必要なのでインストール
+npm install -g typescript
+
+Typescriptプロジェクトの初期化
+mkdir my-typescript-project
+cd my-typescript-project
+tsc --init
+
+
+
+tsファイルのコンパイル      
+tsc index.ts
+
+
+Javascriptファイルの実行
+node index.js
+
+tsファイルのコンパイルを省略してtsファイルを実行するため、ts-nodeをインストール
+npm install -g ts-node
+ts-node index.ts
+
+webpack参考 
+https://qiita.com/TaikiTkwkbysh/items/3eca0902f95e7f7833c4
+
+
+Webpackを使ってプロジェクトをビルドします。
+npx webpackbundle.jsが作成されます。
+
+npm start
+
+
+gcloud projects create etl-various-data-project
+
+gcloud config set project etl-various-data-project
+
+gcloud config set account anzaiyuichidro@gmail.com
+
+gcloud projects describe etl-various-data-project
+
+gcloud pubsub topics create web-generated-data-a
+
+
+
+npm install stream-browserify
+npm install buffer
+
+npm install vm-browserify stream-http https-browserify
+npm install net-browserify tls-browserify child_process-browserify

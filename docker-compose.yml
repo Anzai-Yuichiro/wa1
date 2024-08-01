@@ -1,0 +1,84 @@
+version: '3.8'
+
+services:
+  typescript:
+    build: ./typescript
+    ports:
+      - "9000:9000"
+    volumes:
+      - type: bind
+        source: "./typescript"
+        target: "/app"
+    environment:
+      NODE_ENV: development
+    depends_on:
+      - etl-fast_api
+    networks:
+      - my-network
+
+  etl-fast_api:
+    build: ./fast_api
+    ports:
+      - "8000:8080"
+    volumes: 
+      - type: bind
+        source: "./fast_api/app"
+        target: "/app"
+      - type: bind
+        source: "./credentials"
+        target: "/app/credentials"
+    environment:
+      - GOOGLE_CLOUD_PROJECT=etl-various-data-project
+      - TOPIC_NAME=web-generated-data-a
+      - GOOGLE_APPLICATION_CREDENTIALS=/app/credentials/etl-various-data-project-51f0d2bddb59.json
+    command: uvicorn main:app --host 0.0.0.0 --port 8080 --reload
+    networks:
+      - my-network
+
+  pubsub_to_db:
+    build: ./beam
+    container_name: pubsub-to-db-container
+    volumes:
+      - type: bind
+        source: "./beam/src"
+        target: "/app"
+      - type: bind
+        source: "./beam/test"
+        target: "/test"
+      - type: bind
+        source: "./credentials"
+        target: "/app/credentials"
+    depends_on:
+      - postgres
+    environment:
+      - GOOGLE_CLOUD_PROJECT=etl-various-data-project
+      - SUBSCRIPTION_NAME=web-generated-data-a-sub
+      - GOOGLE_APPLICATION_CREDENTIALS=/app/credentials/etl-various-data-project-51f0d2bddb59.json
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+    networks:
+      - my-network
+
+  postgres:
+    image: postgres:13
+    container_name: postgres
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - my-network
+
+networks:
+  my-network:
+    driver: bridge
+
+volumes:
+  postgres_data:

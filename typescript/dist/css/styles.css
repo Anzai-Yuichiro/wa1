@@ -1,0 +1,48 @@
+/* styles.css */
+
+/* ボタンコンテナのスタイル */
+.button-container {
+    display: flex;
+    justify-content: center; /* 中央揃え */
+    gap: 10px; /* ボタン間のスペース */
+    margin-top: 20px;
+  }
+  
+  /* ボタンの共通スタイル */
+  button {
+    padding: 10px 20px; /* 内側の余白 */
+    font-size: 16px; /* フォントサイズ */
+    border: none; /* 枠線をなくす */
+    border-radius: 5px; /* 角を丸める */
+    cursor: pointer; /* ポインターを指アイコンに変更 */
+    transition: background-color 0.3s; /* 背景色の変更をスムーズに */
+  }
+  
+  /* 各ボタンのスタイル */
+  #changeTextButton {
+    background-color: #4CAF50; /* 緑 */
+    color: white;
+  }
+  
+  #changeTextButton:hover {
+    background-color: #010a01; /* ホバー時の色 */
+  }
+  
+  #logMessageButton {
+    background-color: #008CBA; /* 青 */
+    color: white;
+  }
+  
+  #logMessageButton:hover {
+    background-color: #01070a; /* ホバー時の色 */
+  }
+  
+  #changeBgColorButton {
+    background-color: #f44336; /* 赤 */
+    color: white;
+  }
+  
+  #changeBgColorButton:hover {
+    background-color: #080101; /* ホバー時の色 */
+  }
+  

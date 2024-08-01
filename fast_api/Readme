@@ -1,0 +1,67 @@
+python -m venv fastapi_env
+
+source fastapi_env/bin/activate
+
+
+Dockerfileのあるディレクトリで、Dockerイメージを作成
+docker build -t fastapi-etl-app .
+
+ローカルのport8000をコンテナのport8080にマッピングしてコンテナを起動
+docker run -d -p 8000:8080 fastapi-etl-app
+
+
+docker-compose exec etl-fast_api /bin/bash
+
+
+gcloud pubsub topics list
+
+gcloud pubsub subscriptions list
+
+gcloud pubsub subscriptions create web-generated-data-a-sub --topic web-generated-data-a
+
+gcloud pubsub subscriptions pull web-generated-data-a-sub --auto-ack
+
+dockerコンテナを起動した時にネットワークが見つからないと出た時
+docker network create --driver bridge 5d668d0fda2aba38d84e832233ed262812b64fe92f1a0456fe622e39611bfc13
+
+
+# ディスクスペースの確認
+df -h
+
+# Dockerの使用スペースの確認
+docker system df
+
+
+# 停止中のすべてのコンテナを削除
+docker container prune
+
+# 使われていないすべてのイメージを削除
+docker image prune -a
+
+# 使われていないすべてのボリュームを削除
+docker volume prune
+
+# 使われていないすべてのネットワークを削除
+docker network prune
+
+# すべてを一括でクリーンアップ
+docker system prune -a --volumes
+
+# コンテナに入る
+docker exec -it postgres bash
+
+コンテナでDBに接続する
+psql -U postgres
+
+
+ネットワークを一覧表示する
+docker network ls
+
+
+docker network rm <network-id>
+
+コンテナを停止する
+docker-compose down
+
+停止中のコンテナを削除する
+docker container prune
